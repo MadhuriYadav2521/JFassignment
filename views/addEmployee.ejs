@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Employee</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container"
+        style="width: 50%; margin: 100px auto; border: 1px solid black; padding: 15px; border-radius: 10px;">
+        <h3>Add Employee</h3>
+        <form action="/addEmp" method="POST">
+            <div class="mb-3">
+                <label for="exampleInputName" class="form-label">Employee Name</label>
+                <input name="empName" type="text" class="form-control" aria-describedby="nameHelp" > <br>
+
+                <label for="exampleInputName" class="form-label">Employee Salary</label>
+                <input name="empSalary" type="number" class="form-control" aria-describedby="nameHelp" > <br>
+
+                <label for="exampleInputName" class="form-label">Employee Email</label>
+                <input name="empEmail" type="email" class="form-control" aria-describedby="nameHelp" > <br>
+
+                <% if(error) { %>
+                    <div class="alert alert-danger">
+                        <strong>Error message : <%= error %></strong>
+                      </div>
+                <% } %>
+
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</body>
+
+</html>

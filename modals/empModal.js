@@ -4,7 +4,7 @@ import { Schema } from "mongoose";
 const empSchema = new Schema({
     empName : String,
     empSalary: Number,
-    empDept : String
+    empEmail : String
 })
 
 export default mongoose.model("Employees", empSchema)

@@ -9,7 +9,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }))
-
+app.use(empRoute)
 
 mongoose.connect(process.env.CONNECTION)
 .then(() => console.log("db connected"))

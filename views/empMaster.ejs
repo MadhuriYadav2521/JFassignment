@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Employee Master</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+        .overlayAll {
+            position: fixed;
+            display: none;
+            top: 0%;
+            left: 0%;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(248, 246, 246, 0.744);
+            z-index: 2;
+            cursor: pointer;
+            width: 70%;
+            height: 70vh;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Employee Master</h2>
+        <a class="nav-link btn btn-info" href="/addEmp">Add Employee</a>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Employee ID</th>
+                    <th>Employee Name</th>
+                    <th>Employee Salary</th>
+                    <th>Employee Email</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% employee.forEach((y)=>{ %>
+                    <tr>
+                        <td>
+                            <%= y._id %>
+                        </td>
+                        <td>
+                            <%= y.empName %>
+                        </td>
+                        <td>
+                            <%= y.empSalary %>
+                        </td>
+                        <td>
+                            <%= y.empEmail %>
+                        </td>
+                        <td>
+                            <a class="nav-link btn btn-info" href="/employee/details/<%= y._id %>" onclick="showDetails()">Details</a>
+
+                            <div class="overlayAll container" id="detailsContainer">
+                                <h2>Employee Details</h2>
+                                <h3 class="close" style="float: right;" onclick="off()">close</h3>
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                Employee ID
+                                            </td>
+                                            <td>
+                                                <%= employee._id %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Employee Name
+                                            </td>
+                                            <td>
+                                                <%= employee.empName %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Employee Email
+                                            </td>
+                                            <td>
+                                                <%= employee.empEmail %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Employee Salary
+                                            </td>
+                                            <td>
+                                                <%= employee.empSalary %>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                            <a class="nav-link btn btn-success" href="/updateEmp/<%= y._id %>" onclick="showEmpUpdate()">Update</a>
+
+                            <div class="overlayAll container" id="updateContainer">
+                                <h3>Update Employee</h3>
+                                <h3 class="close" style="float: right;" onclick="updateOff()">close</h3>
+                                <form action="/updateEmp/<%= employee._id%>" method="POST">
+                                    <div class="mb-3">
+                                        <label for="exampleInputName" class="form-label">Employee Name</label>
+                                        <input name="empName" value="<%= employee.empName %>" type="text"
+                                            class="form-control" aria-describedby="nameHelp" required>
+                                    </div><br>
+                                    <div class="mb-3">
+                                        <label for="exampleInputName" class="form-label">Employee Email</label>
+                                        <input name="empEmail" value="<%= employee.empEmail %>" type="text"
+                                            class="form-control" aria-describedby="nameHelp" required>
+                                    </div><br>
+                                    <div class="mb-3">
+                                        <label for="exampleInputName" class="form-label">Employee Name</label>
+                                        <input name="empSalary" value="<%= employee.empSalary %>" type="text"
+                                            class="form-control" aria-describedby="nameHelp" required>
+                                    </div><br>
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </form>
+                            </div>
+
+                            <a class="nav-link btn btn-danger" href="/deleteEmp/<%= y._id %>" onclick="showEmpDelete()">Delete</a>
+
+                            <div class="container overlayAll" id="deleteContainer">
+                                <h3>Delete Emlloyee</h3>
+                                <h3 class="close" style="float: right;" onclick="deleteOff()">close</h3>
+
+                                <form  action="/deleteEmp/<%= employee._id%>" method="POST">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    Employee ID
+                                                </td>
+                                                <td>
+                                                    <%= employee._id %>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Employee Name
+                                                </td>
+                                                <td>
+                                                    <%= employee.empName %>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Employee Email
+                                                </td>
+                                                <td>
+                                                    <%= employee.empEmail %>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Employee Salary
+                                                </td>
+                                                <td>
+                                                    <%= employee.empSalary %>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                  </form>
+                                </div>
+
+                        </td>
+                    </tr>
+                    <% }) %>
+
+            </tbody>
+        </table>
+    </div>
+
+
+    <script>
+        function showDetails() {
+            document.getElementById("detailsContainer").style.display = "block";
+        }
+
+        function off() {
+            document.getElementById("detailsContainer").style.display = "none";
+        }
+        function showEmpUpdate() {
+            document.getElementById("UpdateContainer").style.display = "block";
+        }
+
+        function updateOff() {
+            document.getElementById("UpdateContainer").style.display = "none";
+        }  
+        function showEmpDelete() {
+            document.getElementById("UpdateContainer").style.display = "block";
+        }
+
+        function deleteOff() {
+            document.getElementById("UpdateContainer").style.display = "none";
+        }
+    </script>
+</body>
+
+</html>
